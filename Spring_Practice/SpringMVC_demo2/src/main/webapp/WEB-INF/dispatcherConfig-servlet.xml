@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 通知 spring-webmvc 掃描「某自訂套件」內，是否有被相關Annotation設定為元件的類別  -->
+    <context:component-scan base-package="org.artogether" />
+    <!-- 必須使用以下標籤啟用「自訂控制器」內 @Controller 的Annotation支援 -->
+    <mvc:annotation-driven />
+
+    <!-- Internal Resource View (內部資源視圖): -->
+    <!-- 在Spring MVC中，對於好的做法，它總是建議把整個Views或JSP文件放在"WEB-INF"目錄底下，以保護其免受透過手動輸入網址而直接存取(direct access)。 -->
+    <!-- 放在「WEB-INF」目錄底下的這些Views或JSP文件，被命名為Internal Resource View (內部資源視圖)，因為它只能由透過servlet或Spring控制器類別來存取 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- 靜態資源目錄resources，存放如 CSS/JavaScript...等 -->
+    <!-- 目前這版範例的resources，仍沿用原來(原始)webapp底下的resources目錄，尚未用到另外的的classpath內更為安全的目錄文件 -->
+    <!-- 這是基於 XML 的配置的老式方式 -->
+    <mvc:resources mapping="/resources/**" location="classpath:/static/" />
+    <!-- 在預設情況下，Spring Boot (已採用)在請求的根部分 /** 下提供所有靜態內容 -->
+    <!-- <mvc:resources mapping="/**" location="/resources/" /> -->
+
+    <!-- Spring3.1開始支援-方法級別驗證 (JSR-349 Bean Validation 1.1) -->
+    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+
+    <!-- this MessageSource is being used in a web application -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
+    </bean>
+
+    <!-- Once the Servlet 3.0 configuration is in place,  -->
+    <!-- simply add a bean of type StandardServletMultipartResolver with the name multipartResolver. -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+    </bean>
+</beans>

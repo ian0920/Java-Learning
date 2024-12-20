@@ -1,0 +1,49 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="3.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+  <display-name>Spring Web Annotation Config Demo</display-name>
+
+
+  <!--  讓web application開啟時就載入spring ioc 容器 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!--  告訴web application context spring ioc容器是透過annotation方式設定  -->
+
+  <context-param>
+    <param-name>contextClass</param-name>
+    <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+  </context-param>
+  <!--  告訴web application context annotation的設定檔在哪裡  -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>com.artogether.config.SpringiocConfig</param-value>
+  </context-param>
+
+  
+  <!--  設定DispatcherServlet 將所有的request先交給dispatcher 由dispatcher轉到後面的controller -->
+  <servlet>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+    <init-param>
+      <param-name>contextClass</param-name>
+      <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </init-param>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>com.artogether.config.SpringmvcConfig</param-value>
+    </init-param>
+
+    <load-on-startup>1</load-on-startup>
+
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+</web-app>

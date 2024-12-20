@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>pickRandom.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #67b81e;}
+.s3 { color: #66b71f;}
+.s4 { color: #6897bb;}
+.s5 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+pickRandom.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java.util.Arrays</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Random</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">pickRandom {</span>
+
+
+
+    <span class="s0">public static void </span><span class="s1">main(String[] args) {</span>
+
+        <span class="s2">/*      1. 使用前請先記得import以下三個package置於最上方 
+         *           import java.util.Arrays; 
+         *           import java.util.Random; 
+         *           import java.util.Scanner; 
+         * 
+         *       2. 可輸入想排除的號碼，程式會隨機挑選剩餘的號碼 (號碼範圍請在1~52號) 
+         *          輸入號碼以 , 相隔不同號碼，若無輸入則由程式自動選出7個隨機號碼 
+         *          ex: pickRandom(53,54,55...); 
+         * 
+         *       3. 第二輪選號時，請輸入第一輪當選的號碼，再加上你想排除的號碼，程式會隨機選出剩餘號碼 
+         *          若只輸入第一輪當選號碼，則由程式隨機選出7個號碼 
+         * 
+         * 
+         *       4. 選擇組長為專題製作的大事，好的組長帶你上天堂，請依據同學的能力、品行來謹慎選擇自己認為合適的組長人選 
+         *          此程式僅為輔助使用，如使用上有任何問題歡迎提出與我(51號)討論。 
+         * 
+         */</span>
+
+
+        <span class="s1">pickRandom()</span><span class="s0">; </span><span class="s3">// 第二輪選號請記得將第一輪勝出的號碼輸入以避免再次選到</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">pickRandom (){</span>
+
+        <span class="s1">Random random = </span><span class="s0">new </span><span class="s1">Random()</span><span class="s0">;</span>
+
+        <span class="s0">int</span><span class="s1">[] array = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">53</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; array.length</span><span class="s0">; </span><span class="s1">i++){</span>
+            <span class="s1">array[i] = i</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">int </span><span class="s1">count =</span><span class="s4">0</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">selected[] = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">7</span><span class="s1">]</span><span class="s0">;</span>
+
+        <span class="s0">while </span><span class="s1">(count &lt; </span><span class="s4">7</span><span class="s1">){</span>
+
+            <span class="s0">int </span><span class="s1">pick = random.nextInt(</span><span class="s4">1</span><span class="s0">, </span><span class="s4">53</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">if</span><span class="s1">(array[pick] != </span><span class="s4">0</span><span class="s1">){</span>
+                <span class="s1">selected[count] = array[pick]</span><span class="s0">;</span>
+                <span class="s1">array[pick] = </span><span class="s4">0</span><span class="s0">;</span>
+                <span class="s1">count++</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;隨機號碼為: &quot; </span><span class="s1">+ Arrays.toString(selected))</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">pickRandom (</span><span class="s0">int</span><span class="s1">... exclusion){</span>
+
+
+        <span class="s1">Random random = </span><span class="s0">new </span><span class="s1">Random()</span><span class="s0">;</span>
+        <span class="s0">int</span><span class="s1">[] deleted = exclusion</span><span class="s0">;</span>
+
+        <span class="s0">int</span><span class="s1">[] array = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">53</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; array.length</span><span class="s0">; </span><span class="s1">i++){</span>
+            <span class="s1">array[i] = i</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; deleted.length</span><span class="s0">; </span><span class="s1">i++){</span>
+            <span class="s1">array[deleted[i]] = </span><span class="s4">0</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(deleted.length &gt; </span><span class="s4">7</span><span class="s1">){</span>
+
+            <span class="s0">int </span><span class="s1">count = </span><span class="s4">0 </span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">selected[] = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">14 </span><span class="s1">- deleted.length]</span><span class="s0">;</span>
+
+            <span class="s0">while </span><span class="s1">(count &lt; (</span><span class="s4">14 </span><span class="s1">- deleted.length)){</span>
+
+                <span class="s0">int </span><span class="s1">pick = random.nextInt(</span><span class="s4">1</span><span class="s0">, </span><span class="s4">53</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">if</span><span class="s1">(array[pick] != </span><span class="s4">0</span><span class="s1">){</span>
+                    <span class="s1">selected[count] = array[pick]</span><span class="s0">;</span>
+                    <span class="s1">array[pick] = </span><span class="s4">0</span><span class="s0">;</span>
+                    <span class="s1">count++</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s1">System.out.println(</span><span class="s5">&quot;你排除的號碼: &quot; </span><span class="s1">+ Arrays.toString(deleted))</span><span class="s0">;</span>
+            <span class="s1">System.out.println(</span><span class="s5">&quot;隨機號碼為: &quot; </span><span class="s1">+ Arrays.toString(selected))</span><span class="s0">;</span>
+            <span class="s0">return;</span>
+
+        <span class="s1">}</span>
+
+        <span class="s0">int </span><span class="s1">count = </span><span class="s4">0 </span><span class="s1">+ deleted.length</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">selected[] = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">7 </span><span class="s1">- deleted.length]</span><span class="s0">;</span>
+
+        <span class="s0">while </span><span class="s1">(count &lt; </span><span class="s4">7 </span><span class="s1">){</span>
+
+            <span class="s0">int </span><span class="s1">pick = random.nextInt(</span><span class="s4">1</span><span class="s0">, </span><span class="s4">53</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">if</span><span class="s1">(array[pick] != </span><span class="s4">0</span><span class="s1">){</span>
+                <span class="s1">selected[count - deleted.length] = array[pick]</span><span class="s0">;</span>
+                <span class="s1">array[pick] = </span><span class="s4">0</span><span class="s0">;</span>
+                <span class="s1">count++</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;你排除的號碼: &quot; </span><span class="s1">+ Arrays.toString(deleted))</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s5">&quot;隨機號碼為: &quot; </span><span class="s1">+ Arrays.toString(selected))</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
